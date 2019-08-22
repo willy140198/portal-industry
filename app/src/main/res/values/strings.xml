@@ -5,4 +5,6 @@
     <string name="username_hint">NIM</string>
     <string name="password_hint">password</string>
     <string name="button_login_label">Login</string>
+    <string name="setting_item">Setting</string>
+    <string name="logout_item">Logout</string>
 </resources>

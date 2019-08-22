@@ -9,14 +9,14 @@ import org.json.JSONObject
 
 
 class Helper {
-    fun backgroundThreadShortToast(context: Context, msg: String?) {
+    fun backgroundThreadShortToast(context: Context, msg: String?, length: Int) {
         if (context != null && msg != null) {
             Handler(Looper.getMainLooper())
-                .post { Toast.makeText(context, msg, Toast.LENGTH_SHORT).show() }
+                .post { Toast.makeText(context, msg, length).show() }
         }
     }
 
-    fun extractLoginJson(body: String?): JSONObject{
+    fun extractResponseJson(body: String?): JSONObject{
         val bodyJson = JSONObject(body)
         val result = JSONObject()
         var message: String

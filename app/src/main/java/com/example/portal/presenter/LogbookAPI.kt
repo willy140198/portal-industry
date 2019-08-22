@@ -1,15 +1,17 @@
 package com.example.portal.presenter
 
-import android.util.Log
-import com.example.portal.view.login.LoginActivity
 import okhttp3.*
-import java.lang.Exception
 
 class LogbookAPI {
 
     private val client = OkHttpClient()
+    private val data: User
 
-    fun login(data:LoginActivity, callback: Callback){
+    constructor(data: User){
+        this.data = data
+    }
+
+    fun login(callback: Callback){
         // Creating new form body
         val formBody: RequestBody = FormBody.Builder()
             .add("nim", data.getNim())
@@ -17,14 +19,34 @@ class LogbookAPI {
             .build()
 
         // Create request
-        val request: Request = Request.Builder()
-            .url("https://service.dev.dhirawigata.com/v1/logbook/login")
-            .post(formBody)
-            .build()
+        val url = "https://service.dev.dhirawigata.com/v1/logbook/login"
+        val request: Request = requestBuilder(url, formBody)
 
         // Execute
         client.newCall(request)
             .enqueue(callback)
+    }
+
+    fun check(callback: Callback){
+        // Creating new form body
+        val formBody: RequestBody = FormBody.Builder()
+            .add("nim", data.getNim())
+            .build()
+
+        // Create request
+        val url = "https://service.dev.dhirawigata.com/v1/logbook/check"
+        val request: Request = requestBuilder(url, formBody)
+
+        // Execute
+        client.newCall(request)
+            .enqueue(callback)
+    }
+
+    private fun requestBuilder(url: String, formBody: RequestBody):Request {
+        return Request.Builder()
+            .url(url)
+            .post(formBody)
+            .build()
     }
 
     interface User {
