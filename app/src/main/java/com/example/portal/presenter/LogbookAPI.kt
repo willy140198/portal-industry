@@ -2,14 +2,10 @@ package com.example.portal.presenter
 
 import okhttp3.*
 
-class LogbookAPI {
+class LogbookAPI(data: User) {
 
     private val client = OkHttpClient()
-    private val data: User
-
-    constructor(data: User){
-        this.data = data
-    }
+    private val data: User = data
 
     fun login(callback: Callback){
         // Creating new form body

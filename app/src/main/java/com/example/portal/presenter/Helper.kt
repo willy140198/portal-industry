@@ -9,6 +9,7 @@ import org.json.JSONObject
 
 
 class Helper {
+
     fun backgroundThreadShortToast(context: Context, msg: String?, length: Int) {
         if (context != null && msg != null) {
             Handler(Looper.getMainLooper())

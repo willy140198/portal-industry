@@ -12,18 +12,15 @@ import java.io.IOException
 import java.lang.Exception
 
 
-class LoginPresenter : LogbookAPI.User, InternalStorageHelper.InternalStorageHelperInterface {
+class LoginPresenter(loginActivity: LoginPresenterInterface) : LogbookAPI.User,
+    InternalStorageHelper.InternalStorageHelperInterface {
 
-    private var loginActivity: LoginPresenterInterface
+    private var loginActivity: LoginPresenterInterface = loginActivity
     private val logbook = LogbookAPI(this)
     private val helper: Helper = Helper()
-    private val internalStorageHelper = InternalStorageHelper(this)
-
-    constructor(loginActivity: LoginPresenterInterface){
-        this.loginActivity = loginActivity
-    }
-
+    val internalStorageHelper = InternalStorageHelper(this)
     fun login(){
+        // Doing login
         loginActivity.turnOffLoginButton()
         logbook.login( object: Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -50,7 +47,7 @@ class LoginPresenter : LogbookAPI.User, InternalStorageHelper.InternalStorageHel
     }
 
     fun checkLogin(){
-        val nim = internalStorageHelper.load().toString()
+        val nim = internalStorageHelper.load()
         if(nim.isNotEmpty()){
             loginActivity.goToMain()
         }
@@ -76,8 +73,8 @@ class LoginPresenter : LogbookAPI.User, InternalStorageHelper.InternalStorageHel
         return loginActivity.getModePrivate()
     }
 
-    override fun getFilesDir(): File {
-        return loginActivity.getFilesDir()
+    override fun getFilesDirectory(): File {
+        return loginActivity.getFilesDirectory()
     }
 
     interface LoginPresenterInterface{
@@ -90,6 +87,6 @@ class LoginPresenter : LogbookAPI.User, InternalStorageHelper.InternalStorageHel
         fun openFileIn(name: String): FileInputStream
         fun openFileOut(name: String, mode: Int): FileOutputStream
         fun getModePrivate(): Int
-        fun getFilesDir(): File
+        fun getFilesDirectory(): File
     }
 }

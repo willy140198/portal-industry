@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/search"
+            android:id="@+id/setting_item"
             android:title="@string/setting_item"/>
     <item
-            android:id="@+id/help"
+            android:id="@+id/logout_item"
             android:title="@string/logout_item"/>
 </menu>
