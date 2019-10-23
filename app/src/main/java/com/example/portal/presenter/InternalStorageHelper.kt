@@ -5,19 +5,16 @@ import java.io.*
 import java.lang.Exception
 import java.lang.StringBuilder
 
-class InternalStorageHelper {
-    private val fileName: String = "logbook.txt"
-    private var loginActivity: InternalStorageHelperInterface?
+class InternalStorageHelper (activity: InternalStorageHelperInterface) {
 
-    constructor(loginActivity: InternalStorageHelperInterface){
-        this.loginActivity = loginActivity
-    }
+    private val fileName: String = "logbook.txt"
+    private var activity: InternalStorageHelperInterface? = activity
 
     fun save(nim: String){
         var fos: FileOutputStream? = null
 
         try {
-            fos = loginActivity?.openFileOut(fileName, loginActivity!!.getModePrivate())
+            fos = activity?.openFileOut(fileName, activity!!.getModePrivate())
             fos?.write(nim.toByteArray())
         }catch (e: Exception){
             Log.e("login", e.toString())
@@ -26,11 +23,11 @@ class InternalStorageHelper {
         }
     }
 
-    fun load(): String?{
+    fun load(): String{
         var fis: FileInputStream? = null
-        var text: String? = null
+        var text = ""
         try{
-            fis = loginActivity?.openFileIn(fileName)
+            fis = activity?.openFileIn(fileName)
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
             val sb = StringBuilder()
@@ -48,7 +45,7 @@ class InternalStorageHelper {
     }
 
     fun delete(){
-        val dir = loginActivity?.getFilesDir()
+        val dir = activity?.getFilesDirectory()
         val file = File(dir, fileName)
         file.delete()
     }
@@ -57,6 +54,6 @@ class InternalStorageHelper {
         fun openFileIn(name: String):FileInputStream
         fun openFileOut(name: String, mode: Int):FileOutputStream
         fun getModePrivate(): Int
-        fun getFilesDir(): File
+        fun getFilesDirectory(): File
     }
 }

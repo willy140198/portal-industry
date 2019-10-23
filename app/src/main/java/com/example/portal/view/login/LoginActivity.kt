@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginPresenterInterfac
         return getUiText(R.id.nim_text)
     }
 
-    override fun getFilesDir(): File {
+    override fun getFilesDirectory(): File {
         return filesDir
     }
 
@@ -63,39 +63,17 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginPresenterInterfac
 
     override fun turnOffLoginButton() {
         loginButton.isClickable = false
+        loginButton.setBackgroundColor(resources.getColor(R.color.mtrl_on_primary_disabled))
     }
 
     override fun turnOnLoginButton() {
         loginButton.isClickable = true
+        loginButton.setBackgroundColor(resources.getColor(R.color.design_default_color_primary))
     }
 
     fun login(view: View){
         loginPresenter.login()
     }
-
-//    fun checkLogin(){
-//        logbook.check(object: Callback{
-//            override fun onFailure(call: Call, e: IOException) {
-//
-//            }
-//
-//            override fun onResponse(call: Call, response: Response) {
-//                try {
-//                    val body: String? = response.body()?.string()
-//                    val bodyJson = helper.extractResponseJson(body)
-//                    val code: Int = bodyJson.getInt("code")
-//                    if(code != 200){
-//                        toastMessage("Session has expired")
-//                        internalStorageHelper.delete()
-//                    }else{
-//                        goToMain()
-//                    }
-//                }catch (e: Exception){
-//                    Log.e("login", e.toString())
-//                }
-//            }
-//        })
-//    }
 
     override fun toastMessage (message: String?, length: Int) {
         helper.backgroundThreadShortToast(this, message, length)
